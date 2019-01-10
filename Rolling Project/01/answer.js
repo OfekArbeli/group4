@@ -1,19 +1,27 @@
-allUsers = [];
 
+
+function AllUsers()
+{
+    this.allUsers = [];
+    this.createUser = function(userName,password,age){
+        if(this.allUsers.find(x => x.userName === userName))
+            return "user name already exist";
+        else
+        {
+            this.allUsers.push(new User (userName,password,age));
+        }
+    };
+    // this.deleteUser = function(){};
+    // this.listOfUsers = function(){};
+}
 
 function User(userName,password,age)
 {
-    allUsers.forEach(item => {
-        if(item.userName === this.userName)
-            return "Username is already taken";
-    });
     this.userName = userName;
     this.password = password;
     this.age = age;
     this.updatePassword = function(newPassword){this.password=newPassword};
     this.updateAge = function(newAge){this.age=newAge};
-    allUsers.push(this)
-    console.log("User has been created");
 }
 
 function Groups(groupName)
@@ -46,8 +54,8 @@ function Groups(groupName)
     };
 }
 
-var ofek = new User ("ofek","1111",28);
-var moshe = new User ("ofek","2222",28);
-console.log (moshe)
+var ofek = new AllUsers.createUser("ofek","2222",28);
+var ofek2 = new AllUsers.createUser("ofek","3333",20);
+console.log (ofek2)
 console.log(ofek);
 
