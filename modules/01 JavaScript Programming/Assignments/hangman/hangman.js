@@ -2,23 +2,23 @@ function runGame(pharses){
     function getFoundStr(pharse,letters){
         //print pharse as --------- unless the value is in letters.
         pharse = pharse.toLowerCase().split("");
-        letters.toString();
+        letters.join('');
         var result=[];
         for(var i =0; i<pharse.length;i++)
         {
-            if(pharse[i].indexOf(letters))
+            if(letters.indexOf(pharse[i])>-1)
                 result.push(pharse[i]);
-            else if (pharse[i] === "")
-                result.push("");
+            else if (pharse[i] === " ")
+                result.push(" ");
             else
-                result.push("-")
+                result.push("-");
         }
-        return result.toString();
+        return result.join('');
     }
     function isWon(pharse,letters){
         //check if one of the pharse letters are not in the letters array
         pharse = pharse.toLowerCase().split("")
-        letters.toString();
+        letters.join('');
         for(var i =0; i<pharse.length;i++)
         {
             if(letters.indexOf(pharse[i])==-1)
@@ -31,29 +31,30 @@ function runGame(pharses){
         alfaBet = alfaBet.split("");
         return alfaBet[Math.floor(Math.random() * alfaBet.length)];
     }
-    function isInPharse(pharse,letters){
+    function isInPharse(pharse,letter){
         pharse = pharse.toLowerCase().split("")
-        letters.toString();
         for(var i =0; i<pharse.length;i++)
         {
-            if(letters.indexOf(pharse[i])>-1)
+            if(letter.indexOf(pharse[i])>-1)
                 return true;
         }
         return false;
     }
+
     var life = 10;
     currentPharse = pharses[Math.floor(Math.random() * pharses.length)];
     foundLetters = [];
 
-    while(life>0 && !isWon(currentPharse,foundLetters))
+    while(life > 0 && !isWon(currentPharse,foundLetters))
     {
         console.log("your current life is "+ life);
         console.log("your current foundings are "+ getFoundStr(currentPharse,foundLetters));
-        console.log("please enter a letter");
+        console.log("please enter a letter\n");
+        //var currentLetter = require('readline');
         var currentLetter = simulateUserInput();
         if (isInPharse(currentPharse,currentLetter))
         {
-            console.log("letter was found in the string")
+            console.log(`letter '${currentLetter}' was found in the string\n`)
             foundLetters.push(currentLetter);
         }
         else
@@ -64,11 +65,11 @@ function runGame(pharses){
 
     if(life===0)
     {
-        console.log("you lost!");
+        console.log("Wrong answer, you lost!");
     }
     if(isWon(currentPharse,foundLetters))
     {
-        console.log("you won!");
+        console.log(`you won! the pharse was "${currentPharse}"`);
     }
 
 }
