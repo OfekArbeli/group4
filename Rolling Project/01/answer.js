@@ -1,5 +1,6 @@
-
+//-----------------------------USERS---------------------------------------//
 var allUsers = [];
+
 function createUser(userName,password,age){
     if(allUsers.every(item => {return item.userName !== userName}))
     {
@@ -31,8 +32,8 @@ function getUsers(){
     return result;
 }
 
-function User(userName,password,age)
-{
+//User constratur
+function User(userName,password,age){
     this.userName = userName;
     this.password = password;
     this.age = age;
@@ -40,6 +41,47 @@ function User(userName,password,age)
 
 User.prototype.updatePassword = function(newPassword){this.password=newPassword};
 User.prototype.setAge = function(newAge){this.age=newAge};
+
+//------------------------------GROUPS-------------------------------------//
+var allGroups = [];
+
+//group constratur
+function Group(groupName)
+{
+    this.groupName = groupName;
+}
+
+function createGroup(groupName){
+    if(allGroups.every(item => {return item.groupName !== groupName}))
+    {
+        allGroups.push(new Group (groupName));
+        return "Group created"; 
+    }
+    else
+    {
+        return "Group already exist";
+    }
+}
+
+function deleteGroup(groupName){
+    indexOfGroup = allGroups.findIndex(item => {return item.groupName === groupName});
+    if(indexOfGroup>-1)
+    {
+        allGroups.splice(indexOfGroup,1);
+        return "Group removed"; 
+    }
+    else
+    {
+        return "Group doesn't exist";
+    }
+}
+
+function getGroups(){
+    var result =[];
+    allGroups.forEach(item => {result.push(item.groupName)});
+    return result;
+}
+
 
 // function Groups(groupName)
 // {
@@ -72,10 +114,12 @@ User.prototype.setAge = function(newAge){this.age=newAge};
 // }
 
 var x = createUser("ofek","2222",28);
+var n = createUser("ofek","2222",28);
 var b = createUser("Moshe","2222",28);
 var z = deleteUser("ofek");
 var y = createUser("ofek","2222",28);
 console.log(x);
+console.log(n);
 console.log(z);
 console.log(y);
 console.log(getUsers());
