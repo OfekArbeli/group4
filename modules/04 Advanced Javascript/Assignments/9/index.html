@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gallery</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="gallery">
+        <div id="upper-gallery">
+            <div id="left-arrow-up" onclick="moveLeft()"></div>
+            <img id="current-shown" src="images/img0.jpg">
+            <div id="right-arrow-up" onclick="moveRight()"></div>
+        </div>
+        <div id="lower-wrapper">
+            <div id="left-arrow-down" onmouseover="scrollLeft1(this)" onmouseout="stop_scroll()"></div>
+            <div id="lower-gallery">
+                <img id="img0" src="images/img0.jpg" class="img selected" onclick="showThisImg(this)">
+                <img id="img1" src="images/img1.jpg" class="img" onclick="showThisImg(this)">
+                <img id="img2" src="images/img2.jpg" class="img" onclick="showThisImg(this)">
+                <img id="img3" src="images/img3.jpg" class="img" onclick="showThisImg(this)">
+                <img id="img4" src="images/img4.jpg" class="img" onclick="showThisImg(this)">
+                <img id="img5" src="images/img5.jpg" class="img" onclick="showThisImg(this)">
+                <img id="img6" src="images/img6.jpg" class="img" onclick="showThisImg(this)">
+                <img id="img7" src="images/img7.jpg" class="img" onclick="showThisImg(this)">
+                <img id="img8" src="images/img8.jpg" class="img" onclick="showThisImg(this)">
+                <img id="img9" src="images/img9.jpg" class="img" onclick="showThisImg(this)">
+                <img id="img10" src="images/img10.jpg" class="img" onclick="showThisImg(this)">
+            </div>
+            <div id="right-arrow-down" onmouseover="scrollRight1(this)" onmouseout="stop_scroll()"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
