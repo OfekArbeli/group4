@@ -4,22 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="theme.css">
+    <title>Pattern-it</title>
 </head>
 <body>
-    <div id="browse-wrapper">
-        <input onchange="changePic(event)" type="file" id="file" name="filename" accept="image/*">
-        <img id="attached-pic"/>
+    <div id="main-container">
+        <div id="browse-wrapper">
+            <div class="headline"><h2>Drag or browse a picture</h2></div>
+            <div class="content">
+                <input onchange="changePic(event)" type="file" id="file" name="filename" accept="image/*">
+                <img id="attached-pic"/>
+            </div>
+        </div>
+        <div id="adjuct-wrapper">
+            <div class="headline"><h2>Adjust paettern settings</h2></div>
+            <div class="content">
+                <input class="input" id="rotation" type="range">
+                <input class="input" id="size" type="range">
+                <input class="input" id="horizontal-space" type="range">
+                <input class="input" id="vertical-space" type="range">
+                <input class="input" id="background-color" type="color">
+            </div>
+        </div>
+        <div id="result-wrapper">
+            <div class="headline"><h2>Result</h2></div>
+            <div class="content">
+            </div>
+        </div>
+        <div id="export-wrapper">
+            <div class="headline"><h2>Export settings</h2></div>
+            <div class="content">
+            </div>
+        </div>
     </div>
-    <div id="adjuct-wrapper">
-        <input id="rotation" type="range">
-        <input id="size" type="range">
-        <input id="horizontal-space" type="range">
-        <input id="vertical-space" type="range">
-        <input id="background-color" type="color">
-    </div>
-    <div id="result-wrapper"></div>
-    <div id="export-wrapper"></div>
 </body>
 <script>
     function changePic(event){
@@ -27,8 +44,6 @@
         let reader = new FileReader();
         let pic = document.getElementById("attached-pic");
         pic.title = selectedFile.name;
-
-
         reader.onload = function (event) {
             pic.src = event.target.result;
         }
