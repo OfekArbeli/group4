@@ -19,26 +19,42 @@
         <div id="adjuct-wrapper">
             <div class="headline"><h2>Adjust paettern settings</h2></div>
             <div class="content">
-                <input class="input" id="rotation" type="range">
-                <input class="input" id="size" type="range">
-                <input class="input" id="horizontal-space" type="range">
-                <input class="input" id="vertical-space" type="range">
-                <input class="input" id="background-color" type="color">
+                <div class="input-wrapper">
+                    <label>Rotation</label>
+                    <input class="input" id="rotation" type="range">
+                </div>
+                <div class="input-wrapper">
+                    <label>Size</label>
+                    <input class="input" id="size" type="range">
+                </div>
+                <div class="input-wrapper">
+                    <label>Horizontal space</label>
+                    <input class="input" id="horizontal-space" type="range">
+                </div>
+                <div class="input-wrapper">
+                    <label>Vertical space</label>
+                    <input class="input" id="vertical-space" type="range">
+                </div>
+                <div class="input-wrapper">
+                    <label>Background color</label>
+                    <input class="input" id="background-color" type="color">
+                </div>
             </div>
         </div>
-        <div id="result-wrapper">
+        <div id="result-wrapper" class="pattern">
             <div class="headline"><h2>Result</h2></div>
-            <div class="content">
+            <div id="result" class="content">
             </div>
         </div>
         <div id="export-wrapper">
             <div class="headline"><h2>Export settings</h2></div>
-            <div class="content">
-            </div>
+            <canvas class="content">
+            </canvas>
         </div>
     </div>
 </body>
 <script>
+    let newPattern;
     function changePic(event){
         let selectedFile = event.target.files[0];
         let reader = new FileReader();
@@ -46,8 +62,31 @@
         pic.title = selectedFile.name;
         reader.onload = function (event) {
             pic.src = event.target.result;
+            createNewPattern(event.target.result);
         }
         reader.readAsDataURL(selectedFile);
+    }
+    function createNewPattern(picSrc){
+        newPattern = new Pattern(picSrc);
+    }
+    function Pattern(picSrc){
+        this.img = picSrc;
+        this.rotation=0;
+        this.size="100px";
+        this.horizontalSpace = "10px";
+        this.horizontalSpace = "10px";
+        updateDOM(picSrc);
+    }
+    Pattern.prototype.setRotation=function(rotation){
+        this.rotation=rotation;
+        this.updateDOM(this.rotation);
+    }
+    function updateDOM(picSrc){
+        output=document.getElementById("result").getContext("2d");
+        let img = new image();
+        output.style.backgroundImage = `url('${picSrc}')`;
+        output.style.backgroundSize = "100px";
+        // output.style.
     }
 </script>
 </html>

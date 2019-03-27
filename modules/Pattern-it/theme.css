@@ -4,39 +4,56 @@ html, body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: rgb(172, 203, 221);
+    background: whitesmoke;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: rgb(65, 65, 65);
 }
 #main-container{
-    width: 100%;
-    background: whitesmoke;
+    width: 60%;
     display:flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 #browse-wrapper, #adjuct-wrapper, #result-wrapper, #export-wrapper{
-    width: 40%;
-    max-width: 49%;
-    border: 2px solid red;
+    /* width: 40%; */
+    /* max-width: 700px; */
+    border: 2px solid rgb(236, 65, 65);
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     margin: 8px;
     overflow: hidden;
 }
+#browse-wrapper{
+    width: 300px;
+}
+#adjuct-wrapper{
+    width: 600px;
+}
+#result-wrapper{
+    width: 600px;
+    height: 400px;
+}
+#export-wrapper{
+    width: 300px;
+}
+.pattern{
+    background-image: 
+}
 h2{
     margin: 2px 2px 10px 2px;
-    padding: 0px;
-    font-size: 26px;
+    font-size: 25px;
     text-align: left;
+    color: rgb(255, 185, 177);
 }
 .headline{
     display: flex;
     align-items: center;
     width: 100%;
-    background: blue;
+    background: rgb(236, 65, 65);
+    padding-left: 10px;
 }
 .content{
     width: 100%;
@@ -45,7 +62,16 @@ h2{
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: column;
-    padding: 4px 4px 4px 20px;
-    background: rgb(36, 200, 255);
+    padding: 14px 14px 14px 20px;
     flex-grow:1;
+}
+.input-wrapper{
+    padding-left: 8px;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#attached-pic{
+    width: 30%;
 }
