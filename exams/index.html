@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #sticky{
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+        }
+        .card{
+            border: 2px solid black;
+            background: #F3EDED;
+            width: 200px;
+            margin: 8px;
+            display: flex;
+            align-items: center;
+            flex-direction:column;
+            cursor: pointer;
+        }
+    </style>
+    <title>Movie search UI</title>
+</head>
+<body>
+    <form id="sticky">
+        <input type="search" id="search" placeholder="enter movie name">
+        <button type="submit" onclick="showResults(event)">Submit</button>
+    </form>
+    <div id="message"></div>
+</body>
+<script>
+    let input;
+    let page =1;
+    let message = document.getElementById("message");
+    function showResults(event){
+        event.preventDefault();
+        input=document.getElementById("search").value;
+        console.log(input);
+        if(input.length<3){
+            message.innerText="Search should be at least 3 characters long";
+        }
+        else{
+            page = 1;
+            fetchData();
+        }
+    }
+    function fetchData(){
+        fetch(`http://www.omdbapi.com/?apikey=74fed2a7&s=${input}&type=movie&page=${page}`)
+            .then((res)=>res.json())
+            .then((data)=>{
+                if(data.Response==="True"){
+                    console.log(data);
+                    let output = `<h2>Movies</h2>`;
+                    data.Search.forEach(function(movie){
+                        output+=`
+                            <div class="card" id="${movie.imdbID}" onclick="showAll(this.id)">
+                                <h3>${movie.Title}</h3>
+                                <img src="${movie.Poster}" height="120px"><br>
+                                <a href="https://www.imdb.com/title/${movie.imdbID}/">link to IMDB</a>
+                            </div>
+                        `
+                    })
+                    message.innerHTML=output;
+                    checkIfNextPageAvailable();
+                }
+            })
+    }
+    function checkIfNextPageAvailable(){
+        fetch(`http://www.omdbapi.com/?apikey=74fed2a7&s=${input}&type=movie&page=${page+1}`)
+            .then((res)=>res.json())
+            .then((data)=>{
+                if(data.Response==="False"){
+                    createNextButton();
+                    disableButton();
+                }
+                else{
+                    createNextButton();
+                }
+            })
+    }
+    function createNextButton(){
+        btn = document.createElement("button")
+        btn.id = "load-more";
+        btn.innerText = "Load More";
+        page+=1;
+        btn.addEventListener("click", fetchData);
+        message.appendChild(btn);
+    }
+    function disableButton(){
+        btn = document.getElementById("load-more");
+        btn.disabled = true;
+    }
+    function showAll(imdbID){
+        fetch(`http://www.omdbapi.com/?apikey=74fed2a7&i=${imdbID}`)
+            .then((res)=>res.json())
+            .then((data)=>{
+                if(data.Response==="True"){
+                    console.log(data);
+                    let output = `<h2>${data.Title}</h2>`;
+                    output+=`
+                        <div class="popup" onclick="hide(this.id)">
+                            <h3>${data.Title}</h3>
+                            <img src="${data.Poster}" height="120px"><br>
+                            <a href="https://www.imdb.com/title/${data.imdbID}/">link to IMDB</a>
+                            <div>${data.Title}</div>
+                            <div>${data.Year}</div>
+                            <div>${data.Rated}</div>
+                            <div>${data.Released}</div>
+                            <div>${data.Runtime}</div>
+                            <div>${data.Genre}</div>
+                            <div>${data.Director}</div>
+                            <div>${data.Writer}</div>
+                            <div>${data.Actors}</div>
+                            <div>${data.Plot}</div>
+                            <div>${data.Ratings}</div>
+                        </div>
+                    `
+                    message.innerHTML=output;
+                }
+            })
+    }
+</script>
+</html>
