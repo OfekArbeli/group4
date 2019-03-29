@@ -36,11 +36,12 @@ html, body{
     width: 600px;
     height: 400px;
 }
+#result{
+    margin: 0;
+    padding: 0;
+}
 #export-wrapper{
     width: 300px;
-}
-.pattern{
-    background-image: 
 }
 h2{
     margin: 2px 2px 10px 2px;

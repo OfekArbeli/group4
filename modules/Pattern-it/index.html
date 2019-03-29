@@ -43,13 +43,13 @@
         </div>
         <div id="result-wrapper" class="pattern">
             <div class="headline"><h2>Result</h2></div>
-            <div id="result" class="content">
-            </div>
+            <canvas id="result" class="content" width="600px" height="400px">
+            </canvas>
         </div>
         <div id="export-wrapper">
             <div class="headline"><h2>Export settings</h2></div>
-            <canvas class="content">
-            </canvas>
+            <div class="content">
+            </div>
         </div>
     </div>
 </body>
@@ -79,14 +79,26 @@
     }
     Pattern.prototype.setRotation=function(rotation){
         this.rotation=rotation;
-        this.updateDOM(this.rotation);
+        // this.updateDOM(this.rotation);
     }
     function updateDOM(picSrc){
-        output=document.getElementById("result").getContext("2d");
-        let img = new image();
-        output.style.backgroundImage = `url('${picSrc}')`;
-        output.style.backgroundSize = "100px";
-        // output.style.
+        let myCanvas = document.getElementById('result');
+        let context = myCanvas.getContext('2d');
+        let tempCanvas=document.createElement("canvas");
+        let tempContext = tempCanvas.getContext("2d");
+        let img = new Image;
+        img.src =picSrc;
+        img.onload = function(){
+            let prefix =100;
+            let width =img.width;
+            let height=img.height;
+            let poprtion=width/prefix;
+            tempCanvas.width = prefix;
+            tempCanvas.height = height/poprtion;
+            tempContext.drawImage(img,0,0,prefix,height/poprtion); //context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+            context.fillStyle =context.createPattern(tempCanvas,"repeat");
+            context.fillRect(0, 0, 600, 400);
+        };
     }
 </script>
 </html>
