@@ -9,6 +9,7 @@ html, body{
     align-items: center;
     justify-content: center;
     color: rgb(65, 65, 65);
+    font-family: 'Nunito', sans-serif;
 }
 #main-container{
     width: 60%;
@@ -25,6 +26,8 @@ html, body{
     flex-direction: column;
     margin: 8px;
     overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px 0px #c9c9c9;
 }
 #browse-wrapper{
     width: 300px;
@@ -48,6 +51,7 @@ h2{
     font-size: 25px;
     text-align: left;
     color: rgb(255, 185, 177);
+    font-family: 'Nunito', sans-serif;
 }
 .headline{
     display: flex;
@@ -55,6 +59,7 @@ h2{
     width: 100%;
     background: rgb(236, 65, 65);
     padding-left: 10px;
+    padding-top: 4px;
 }
 .content{
     width: 100%;

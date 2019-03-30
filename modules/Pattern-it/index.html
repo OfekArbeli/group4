@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="theme.css">
+    <link id="css" rel="stylesheet" type="text/css" href="stateOne.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <title>Pattern-it</title>
 </head>
 <body>
     <div id="main-container">
         <div id="browse-wrapper">
-            <div class="headline"><h2>Drag or browse a picture</h2></div>
-            <div class="content">
+            <div id="master-headline" class="headline"><h2>Browse a picture</h2></div>
+            <div id="master-content" class="content">
                 <input onchange="changePic(event)" type="file" id="file" name="filename" accept="image/*">
                 <img id="attached-pic"/>
             </div>
@@ -21,23 +22,23 @@
             <div class="content">
                 <div class="input-wrapper">
                     <label>Rotation</label>
-                    <input class="input" id="rotation" type="range">
+                    <input class="input" id="rotation" type="range" oninput="inputs(this.id)" min="-180" max="180" disabled>
                 </div>
                 <div class="input-wrapper">
                     <label>Size</label>
-                    <input class="input" id="size" type="range">
+                    <input class="input" id="size" type="range" oninput="inputs(this.id)" min="1" max="200" disabled>
                 </div>
                 <div class="input-wrapper">
                     <label>Horizontal space</label>
-                    <input class="input" id="horizontal-space" type="range">
+                    <input class="input" id="horizontal-space" type="range" oninput="inputs(this.id)" min="-50" max="150" disabled>
                 </div>
                 <div class="input-wrapper">
                     <label>Vertical space</label>
-                    <input class="input" id="vertical-space" type="range">
+                    <input class="input" id="vertical-space" type="range" oninput="inputs(this.id)" min="-50" max="150" disabled>
                 </div>
                 <div class="input-wrapper">
                     <label>Background color</label>
-                    <input class="input" id="background-color" type="color">
+                    <input class="input" id="background-color" type="color" value="#ffffff" oninput="inputs(this.id)" disabled>
                 </div>
             </div>
         </div>
@@ -68,20 +69,65 @@
     }
     function createNewPattern(picSrc){
         newPattern = new Pattern(picSrc);
+        moveToState2();
+    }
+    function moveToState2(){
+        enableButtons();
+        changeCSSFile();
+    }
+    function changeCSSFile(){
+        let css=document.getElementById("css");
+        css.href="stateTwo.css";
+    }
+    function enableButtons(){
+        let rotationInput = document.getElementById("rotation").disabled=false;
+        let sizeInput = document.getElementById("size").disabled=false;
+        let horizontalInput = document.getElementById("horizontal-space").disabled=false;
+        let verticalInput = document.getElementById("vertical-space").disabled=false;
+        let BackgroundInput = document.getElementById("background-color").disabled=false;
     }
     function Pattern(picSrc){
         this.img = picSrc;
         this.rotation=0;
-        this.size="100px";
-        this.horizontalSpace = "10px";
-        this.horizontalSpace = "10px";
-        updateDOM(picSrc);
+        this.size=100;
+        this.horizontalSpace = 10;
+        this.verticalSpace = 10;
+        this.BGColor = "white";
+        clearCanvas();
+        updateDOM(this.img,this.size,this.horizontalSpace,this.verticalSpace,this.rotation);
+    }
+    Pattern.prototype.setBGColor=function(BGColor){
+        this.BGColor=BGColor;
+        let result = document.getElementById("result");
+        result.style.backgroundColor=BGColor;
+        console.log(BGColor);
     }
     Pattern.prototype.setRotation=function(rotation){
         this.rotation=rotation;
-        // this.updateDOM(this.rotation);
+        clearCanvas();
+        updateDOM(this.img,this.size,this.horizontalSpace,this.verticalSpace,this.rotation);
     }
-    function updateDOM(picSrc){
+    Pattern.prototype.setVerticalSpace=function(verticalSpace){
+        this.verticalSpace=verticalSpace;
+        clearCanvas();
+        updateDOM(this.img,this.size,this.horizontalSpace,this.verticalSpace,this.rotation);
+    }
+    Pattern.prototype.setHorizontalSpace=function(horizontalSpace){
+        this.horizontalSpace=horizontalSpace;
+        clearCanvas();
+        updateDOM(this.img,this.size,this.horizontalSpace,this.verticalSpace,this.rotation);
+    }
+    Pattern.prototype.setSize=function(size){
+        this.size=size;
+        clearCanvas();
+        updateDOM(this.img,this.size,this.horizontalSpace,this.verticalSpace,this.rotation);
+    }
+    function clearCanvas(){
+        let canvas = document.getElementById('result');
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    function updateDOM(picSrc,sizePrefix,horizontalSpace,verticalSpace,rotation){
         let myCanvas = document.getElementById('result');
         let context = myCanvas.getContext('2d');
         let tempCanvas=document.createElement("canvas");
@@ -89,16 +135,43 @@
         let img = new Image;
         img.src =picSrc;
         img.onload = function(){
-            let prefix =100;
             let width =img.width;
             let height=img.height;
-            let poprtion=width/prefix;
-            tempCanvas.width = prefix;
-            tempCanvas.height = height/poprtion;
-            tempContext.drawImage(img,0,0,prefix,height/poprtion); //context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+            let poprtion=width/sizePrefix;
+            tempCanvas.width = sizePrefix + horizontalSpace;
+            tempCanvas.height = height/poprtion + verticalSpace;
+            tempContext.translate(tempCanvas.width/2, tempCanvas.height/2);
+            tempContext.rotate(rotation * Math.PI / 180);
+            tempContext.translate(-tempCanvas.width/2, -tempCanvas.height/2);
+            tempContext.drawImage(img,0,0,sizePrefix,height/poprtion); //context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
             context.fillStyle =context.createPattern(tempCanvas,"repeat");
             context.fillRect(0, 0, 600, 400);
         };
+    }
+    function inputs(id){
+        if(newPattern){
+            let input = document.getElementById(id);
+            if(id==="vertical-space"){
+                input = parseInt(input.value,10);
+                newPattern.setVerticalSpace(input);
+            }  
+            else if(id==="horizontal-space"){
+                input = parseInt(input.value,10);
+                newPattern.setHorizontalSpace(input);
+            }
+            else if(id==="size"){
+                input = parseInt(input.value,10);
+                newPattern.setSize(input);
+            }
+            else if(id==="rotation"){
+                input = parseInt(input.value,10);
+                newPattern.setRotation(input);
+            }
+            else if(id==="background-color"){
+                input = input.value;
+                newPattern.setBGColor(input);
+            }
+        }
     }
 </script>
 </html>
