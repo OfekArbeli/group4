@@ -1,0 +1,9 @@
+<div class="container">
+  <h1>Sign In</h1>
+  <form #signInForm="ngForm">
+      <label for="userName">User Name</label>
+      <input type="text" class="form-control" id="userName" requiered [(ngmodel)]="model.userName" name="userName">
+      <label for="userName">Password</label>
+      <input type="password" class="form-control" id="password" requiered [(ngmodel)]="model.password" name="password">
+  </form>
+</div>
