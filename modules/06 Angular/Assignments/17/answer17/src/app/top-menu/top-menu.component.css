@@ -1,0 +1,15 @@
+#top-menu-nav{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: firebrick;
+}
+#top-menu-ul{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+a{
+    color: white;
+}
