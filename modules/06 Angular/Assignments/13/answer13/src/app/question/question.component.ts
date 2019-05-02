@@ -7,18 +7,12 @@ import { QuizService } from '../quiz.service';
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
+  @Input() id:string;
   @Input() question:string;
-  @Input() correctAnswerIndex:number
   constructor(public QuizService: QuizService) { 
     this.question="";
-    this.correctAnswerIndex=0;
+    this.id="0";
   }
-
   ngOnInit() {
-    this.passAnswersToService();
   }
-  passAnswersToService() {
-    this.QuizService.setQuiz(this.question,this.correctAnswerIndex);
-  }
-
 }

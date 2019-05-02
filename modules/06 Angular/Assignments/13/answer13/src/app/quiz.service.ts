@@ -12,7 +12,7 @@ export class QuizService {
   }
   createFakeQuestions(){
     for(let i=0;i<10;i++){
-      let ID = i;
+      let ID ="question" + i;
       let question = `what is John snow hair color-${i}?`
       let answers=["blue","yellow","orange","black"];
       let correctAnswerIndex = 3;
