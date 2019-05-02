@@ -1,10 +1,10 @@
-<form (ngSubmit)="onSubmit()">
+<form #f="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit(f)" validate>
   <app-question *ngFor="let quiz of quizes" [id]="quiz.ID" [question]="quiz.question">
     <div *ngFor="let answer of quiz.answers;let i=index">
         <input  type="radio" [name]="quiz.ID">
         <label>{{answer}}</label>
     </div>
   </app-question>
-  <button>Submit</button>
+  <button type="submit">Submit</button>
 </form>
 
