@@ -1,0 +1,5 @@
+<input type="radio" name="clock" value="timer" (click)="toggleNav('timer')" checked> Timer<br>
+<input type="radio" name="clock" value="countdown" (click)="toggleNav('countdown')"> Countdown<br>
+<input type="number" value="5 | clock" placeholder="Start From (in minutes)">
+<app-timer *ngIf="timer"></app-timer>
+<app-countdown *ngIf="!timer"></app-countdown>
