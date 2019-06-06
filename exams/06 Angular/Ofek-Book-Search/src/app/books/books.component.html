@@ -1,0 +1,13 @@
+<form id="search-nav" #f="ngForm" (submit)="onSubmitForm(f)">
+  <input type="search" placeholder="Enter book title" id="search" [ngModel]="seacrhModel"
+  #searchRef="ngModel" name="search" required minlength="3">
+  <button id="search-button" type="submit" [disabled]="f.invalid">Search</button>
+  <div id="message" *ngIf="searchRef.errors?.minlength">length must be longer than 3</div>
+</form>
+
+<div id="books-container">
+  <app-book *ngFor="let book of booksServiceService.books" [book]="book.volumeInfo"></app-book>
+</div>
+<div [hidden]="!booksServiceService.moreResults">
+    <button *ngIf="booksServiceService.books.length>0" (click)="loadMore()">load more</button>
+</div>

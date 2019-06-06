@@ -1,0 +1,72 @@
+.book{
+    border: 2px solid gray;
+    margin: 10px;
+    padding: 15px;
+    width: 200px;
+    background-color: white;
+    border-radius: 10px;
+    transition: all .3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+.book-open{
+    border: 2px solid gray;
+    margin: 10px;
+    padding: 15px;
+    width: 200px;
+    background-color: white;
+    border-radius: 10px;
+    transition: all .3s ease-in-out;
+    position: relative;
+}
+
+.book-title{
+    margin: 2px;
+    width: 100%;
+}
+
+.book:hover{
+    padding-right: 80px;
+}
+
+.book:hover .read-more{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 70px;
+    background-color: lightcoral;
+    color: white;
+}
+
+.read-more{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background-color: lightcoral;
+    border: none;
+    transition: all .3s ease-in-out;
+    overflow: hidden;
+    padding: 0;
+    color: lightcoral;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.more-details{
+    position: absolute;
+    right: -310px;
+    top: 0;
+    border: 2px solid gray;
+    width: 300px;
+    height: 100%;
+    overflow: auto;
+}
+
+.more-details-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

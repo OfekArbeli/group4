@@ -1,0 +1,16 @@
+<div [ngClass]="toggleMoreDetails ? 'book-open' : 'book'">
+  <h2 class="book-title">{{book.title}}</h2>
+  <div class="authors">
+      <h3 *ngFor="let author of book.authors">{{author}}</h3>
+  </div>
+  <a [href]="book.previewLink">book page</a>
+  <button class="read-more" (click)="showMore()">read more</button>
+  <div class="more-details" *ngIf="book.imageLinks">
+    <div class="more-details-header">
+      <img *ngIf="book.imageLinks.thumbnail" [src]="book.imageLinks.thumbnail" default="test.com/default-img" onerror="" />
+      <h3 *ngIf="book.publisher" class="publisher">publisher: {{book.publisher}}</h3>
+    </div>
+    <h3 *ngIf="book.publishedDate" class="published-date">published date:{{book.publishedDate}}</h3>
+    <p *ngIf="book.description" class="description">description:{{book.description}}</p>
+  </div>
+</div>
