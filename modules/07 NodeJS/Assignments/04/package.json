@@ -1,0 +1,19 @@
+{
+  "name": "04",
+  "version": "1.0.0",
+  "description": "<p>use <code>group4/Modules/06 Angular/Examples/ng-memory-game</code>.</p>\r <p>create a node server which accepts search keywords as a querystring.</p>\r <p>the server should request Google Images for search results for the specified keywords.</p>\r <p>use the first 8 pictures from the results as the card content in the memory game.</p>\r <h2>Example</h2>\r <h4>after sending to the server the keywords \"movie star face close up\":</h4>\r <img src=\"ng-memory-game.jpg\">\r <h2>npm modules</h2>\r <p>execute requests using the <a href=\"https://www.npmjs.com/package/request\" target=\"_blank\">request</a> npm module. Install it by running <code>npm init -y</code> and <code>npm install request</code>.</p>\r <p>\r   read from querystring using the code from <code>group4/modules/06 Angular/Examples/video-search-server</code>:\r <code>\r <pre>\r const url = require('url');\r ...\r const query = url.parse(req.url,true).query;\r const actorName = query.actorName;\r ...\r </pre>\r </code>\r </p>\r <p>take the first 8 images from Google HTML page using <a href=\"https://www.npmjs.com/package/jsdom\" target=\"_blank\">jsdom</a> npm module. Install it by running <code>npm install jsdom</code>.</p>",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsdom": "^15.1.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}

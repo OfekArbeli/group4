@@ -1,0 +1,6 @@
+<h1>Memory Game</h1>
+<form #f="ngForm" (submit)="onSubmit(f)">
+    <input type="search" id="search" [ngModel]="searchModel" #searchRef="ngModel" name="searchQuery" placeholder="type any genre for the game cards" required>
+    <button type="submit" [disabled]="f.invalid">Search</button>
+</form>
+<app-board></app-board>

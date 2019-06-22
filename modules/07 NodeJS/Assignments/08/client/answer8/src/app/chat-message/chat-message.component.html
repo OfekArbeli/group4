@@ -1,0 +1,14 @@
+<div [className]="removeAnimation ? 'close-message-container' : 'message-container'">
+  <div class="message">
+    <input #messageValue class="message-input" [value]="chatMessage.message" [disabled]="!edit">
+    <div class="author">{{chatMessage.author}}</div>
+    <div class="action-panel">
+        <i class="fas fa-trash-alt" (click)="removeMessage(chatMessage.ID)"></i>
+        <i class="fas fa-edit" (click)="enableEdit()" *ngIf="!edit"></i>
+        <i class="fas fa-check" (click)="updateChatMessage(messageValue.value)" *ngIf="edit"></i>
+    </div>
+  </div>
+  <div class="user-img"><i class="far fa-user"></i></div>
+</div>
+
+

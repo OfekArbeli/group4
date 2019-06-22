@@ -1,0 +1,7 @@
+<form #f="ngForm" (submit)="onSubmitForm(f)">
+  <input type="text" id="username" [ngModel]="usernameModel" placeholder="your name"
+  #usernameRef="ngModel" name="username" required />
+  <input type="text" id="message" [ngModel]="messageModel" placeholder="your message"
+  #messageRef="ngModel" name="message" required />
+  <button [disabled]="f.invalid">Send</button>
+</form>

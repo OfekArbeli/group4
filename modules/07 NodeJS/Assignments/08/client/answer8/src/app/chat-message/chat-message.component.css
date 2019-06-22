@@ -1,0 +1,117 @@
+.author{
+    color: #343433;
+    font-size: 9pt;
+    position: absolute;
+    top: -12px;
+    /* right: -10px; */
+}
+.message{
+    background-color: #fbfbfb;
+    display: inline-block;
+    max-width: 340px;
+    min-width: 30px;
+    padding: 4px 4px 4px 8px;
+    margin-top: 10px;
+    border-radius: 10px;
+    position: relative;
+    left: 38px;
+    top: 10px;
+    color: #343433;
+    word-break: break-all;
+    cursor: default;
+    min-height: 0;
+    transition: all .2s ease-in-out;
+}
+.message::after{
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    left: 6px;
+    bottom: -10px;
+    border-left: 2px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid #fbfbfb;
+}
+.message:hover{
+    padding-right: 50px;
+    min-height: 48px;
+}
+
+.message:hover .action-panel{
+    visibility: visible;
+    width: 20px;
+}
+.action-panel{
+    visibility: hidden;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    width: 0;
+    background-color: #f5eeec;
+    position: absolute;
+    color: #949392;
+    right: 0px;
+    top: 0;
+    border-radius: 0 10px 10px 0;
+    transition: all .2s ease-in-out;
+}
+
+.action-panel i{
+    cursor: pointer;
+}
+.user-img{
+    background-color: #fbfbfb;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16pt;
+    color: #fb8365;
+}
+
+.close-message-container{
+    animation: slide-out-bck-left 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+@keyframes slide-out-bck-left {
+    0% {
+      -webkit-transform: translateZ(0) translateX(0);
+              transform: translateZ(0) translateX(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateZ(-1100px) translateX(-1000px);
+              transform: translateZ(-1100px) translateX(-1000px);
+      opacity: 0;
+    }
+}
+
+.message-input:disabled{
+    border:none;
+    background-image:none;
+    background-color:transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.message-input{
+    border: 1px solid lightblue;
+    border-radius: 4px;
+    background-image:none;
+    background-color:transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.fa-check{
+    color: rgb(71, 178, 214);
+}
