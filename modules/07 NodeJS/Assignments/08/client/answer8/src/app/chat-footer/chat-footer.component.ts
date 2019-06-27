@@ -12,6 +12,7 @@ export class ChatFooterComponent {
 
   onSubmitForm(f){
     this.mainService.postNewChatMessage(f.value.username,f.value.message);
+    this.mainService.showSearchResults = false;
     f.reset();
   }
 }

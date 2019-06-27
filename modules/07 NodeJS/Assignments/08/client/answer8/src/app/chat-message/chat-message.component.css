@@ -10,7 +10,7 @@
     display: inline-block;
     max-width: 340px;
     min-width: 30px;
-    padding: 4px 4px 4px 8px;
+    padding: 4px 20px 4px 8px;
     margin-top: 10px;
     border-radius: 10px;
     position: relative;
@@ -64,6 +64,10 @@
 .action-panel i{
     cursor: pointer;
 }
+.action-panel i:hover{
+    cursor: pointer;
+    color: #fb8365;
+}
 .user-img{
     background-color: #fbfbfb;
     width: 40px;
@@ -93,25 +97,30 @@
     }
 }
 
-.message-input:disabled{
-    border:none;
-    background-image:none;
-    background-color:transparent;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
 
-.message-input{
-    border: 1px solid lightblue;
+.message-input, .message-div{
     border-radius: 4px;
     background-image:none;
     background-color:transparent;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    overflow-wrap: break-word;
+    padding: 4px;
+    /* max-width: 100%; */
+}
+.message-input{
+    border: 1px solid lightblue;
 }
 
 .fa-check{
     color: rgb(71, 178, 214);
+}
+
+.fa-angle-right{
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translate(0,-50%);
+    color: #fb8365;
 }

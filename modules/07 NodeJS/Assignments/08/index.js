@@ -1,20 +1,41 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path'); 
 const cors = require('cors');
-
+const writeFile = require('./write-file.js');
 const app = express();
 const port = 4000;
+// const fs = require('fs');
+// const path = require('path');
 
 const chatMessages = [];
 
 app.use(cors());
 app.use(express.json());
 
+
 // app.use((req,res,next)=>{
 //     if(req.method === "POST"){
-//         const filesList = req.body.files;
-//         console.log(filesList);
+//         const now = new Date().toLocaleString().replace(',', '');
+//         const action = 'ADD';
+//         const ID = provideAnID();
+//         const author = req.body.author;
+//         const message = req.body.message;
+//         const logText = `${now}, ${action}, ${ID}, ${message}, ${author} \n`;
+//         writeFile(logText);
+//         req.body.ID = ID;
+//         next();
+//     }
+//     else if(req.method === 'DELETE'){
+//         if(req.query.ID){
+//             const now = new Date().toLocaleString().replace(',', '');
+//             const action = 'DELETE';
+//             const ID = req.query.ID;
+//             const index = getMessageIndexByID(ID);
+//             const author = chatMessages[index].author;
+//             const message = chatMessages[index].message;
+//             const logText = `${now}, ${action}, ${ID}, ${message}, ${author} \n`;
+//             writeFile(logText);
+//             next();
+//         }
 //         next();
 //     }
 // });
@@ -22,7 +43,7 @@ app.use(express.json());
 app.post('/',(req,res)=>{
     try{
         let newMessage = req.body;
-        newMessage.ID = provideAnID();
+        newMessage.ID = req.body.ID;
         chatMessages.push(newMessage);
         res.json({chatMessages});
     }
@@ -33,7 +54,14 @@ app.post('/',(req,res)=>{
 })
 
 app.get('/',(req,res)=>{
-    res.json({chatMessages});
+    if(req.query.searchQuery){
+        console.log(req.query.searchQuery);
+        const searchResultMessages = searchInMessages(req.query.searchQuery);
+        res.json({searchResultMessages});
+    }
+    else{
+        res.json({chatMessages});
+    }
 })
 
 app.put('/',(req,res)=>{
@@ -79,20 +107,17 @@ function provideAnID(){
     return Math.floor(Math.random() * 999999);
 }
 
-// function searchForFiles(files){
-//     let foundFiles = "";
-//     for(let file of files){
-//         let currentPath = path.join(__dirname,'documents',file);
-//         if(fs.existsSync(currentPath)){
-//             foundFiles+= `${file} \n`
-//         }
-//     }
-//     return foundFiles
-// }
+function searchInMessages(searchQuery){
+    let lowerSearchQuery = searchQuery.toLowerCase();
+    let results = [];
+    chatMessages.forEach(chatMessage => {
+        if(chatMessage.author.toLowerCase().includes(lowerSearchQuery)
+         || chatMessage.message.toLowerCase().includes(lowerSearchQuery)){
+            results.push(chatMessage);
+        }
+    });
+    return results;
+}
 
-// function writeToFile(foundFiles){
-//     let writeStream = fs.createWriteStream("found_files.text");
-//     writeStream.write(foundFiles);
-// }
 
 app.listen(port,()=>console.log(`listening on port ${port}`))

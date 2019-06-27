@@ -6,16 +6,28 @@ import { Injectable } from '@angular/core';
 export class MainServiceService {
   url: string;
   chatMessages: object[];
+  searchResultMessages: object[];
+  showSearchResults: boolean;
   constructor() { 
     this.url="http://localhost:4000";
     this.chatMessages = [];
+    this.searchResultMessages = [];
+    this.showSearchResults = false;
   }
 
-  async getChatMessages(){
-    const response = await fetch(this.url);
-    const data = await response.json();
-    this.chatMessages = data.chatMessages;
-    console.log(this.chatMessages);
+  async getChatMessages(searchQuery){
+    if(searchQuery){
+      const response = await fetch(this.url+'?searchQuery='+searchQuery);
+      const data = await response.json();
+      this.searchResultMessages = data.searchResultMessages;
+      console.log(this.searchResultMessages);
+    }
+    else{
+      const response = await fetch(this.url);
+      const data = await response.json();
+      this.chatMessages = data.chatMessages;
+      console.log(this.chatMessages);
+    }
   }
 
   async postNewChatMessage(username: string, message: string){

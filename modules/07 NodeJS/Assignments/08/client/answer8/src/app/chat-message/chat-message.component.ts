@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MainServiceService } from '../main-service.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { MainServiceService } from '../main-service.service';
 })
 export class ChatMessageComponent {
   @Input() chatMessage;
+  @ViewChild('messageValue') div; 
   removeAnimation: boolean;
   edit: boolean;
   constructor(private mainService:MainServiceService) { 
@@ -22,7 +23,11 @@ export class ChatMessageComponent {
   enableEdit(){
     this.edit = true;
   }
-  updateChatMessage(newMessage){
+  updateChatMessage(e){
+    if(e){
+      e.preventDefault();
+    }
+    let newMessage = this.div.nativeElement.innerText;
     let newChatMessage = {
       ID: this.chatMessage.ID,
       author: this.chatMessage.author,

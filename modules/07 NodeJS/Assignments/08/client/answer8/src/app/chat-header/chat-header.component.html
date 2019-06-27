@@ -1,0 +1,6 @@
+<form #f="ngForm" (submit)="onSubmitForm(f)">
+  <div *ngIf="searchRef.invalid && searchRef.touched">minimum 3 letters</div>
+  <input (keydown.enter)="$event.preventDefault()" (search)="search(f)" type="search" id="search" [ngModel]="searchModel"
+   minlength="3" #searchRef="ngModel" name="searchQuery" autocomplete="off" required />
+  <button [disabled]="f.invalid"><i class="fas fa-search"></i></button>
+</form>
