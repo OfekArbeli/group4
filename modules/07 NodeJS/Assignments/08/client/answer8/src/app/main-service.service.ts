@@ -15,7 +15,7 @@ export class MainServiceService {
     this.showSearchResults = false;
   }
 
-  async getChatMessages(searchQuery){
+  async getChatMessages(searchQuery?){
     if(searchQuery){
       const response = await fetch(this.url+'?searchQuery='+searchQuery);
       const data = await response.json();
